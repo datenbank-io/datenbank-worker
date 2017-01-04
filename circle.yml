@@ -1,0 +1,17 @@
+machine:
+  services:
+    - docker
+dependencies:
+  pre:
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+deployment:
+  release:
+    tag: /release-.*/
+    owner: datenbank-io
+    commands:
+      - echo "release"
+  development:
+    branch: development
+    commands:
+      - docker build --rm=false -t datenbank/worker:development .
+      - docker push datenbank/worker:development
