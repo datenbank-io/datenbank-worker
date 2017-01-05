@@ -22,5 +22,5 @@
       \""cpu"\": 0
     }
   ],
-  \""family"\": \""datenbank-worker"\"
+  \""family"\": \""datenbank-worker-$CIRCLE_BRANCH"\"
 }
