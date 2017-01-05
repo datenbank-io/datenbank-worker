@@ -4,6 +4,8 @@ machine:
 dependencies:
   pre:
     - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+    - docker build --rm=false -t datenbank/worker:$CIRCLE_BRANCH-${CIRCLE_SHA1:0:7} .
+    - docker push datenbank/worker:$CIRCLE_BRANCH-${CIRCLE_SHA1:0:7}
 deployment:
   release:
     tag: /release-.*/
@@ -13,5 +15,5 @@ deployment:
   development:
     branch: development
     commands:
-      - docker build --rm=false -t datenbank/worker:development .
-      - docker push datenbank/worker:development
+      - aws configure set region eu-central-1
+      - ./deploy.sh
